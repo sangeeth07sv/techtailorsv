@@ -1,0 +1,12 @@
+rules_version = '2';
+// firestore.rules
+// Only authenticated users (admin) can read/write all data
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow only logged-in users to access any document
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
